@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using Assets._Scripts.Utils;
-
 public class GameManager : MonoBehaviour {
     public GameObject dartPrefab, balloonPrefab;
     public Transform ballTrans;
@@ -14,7 +13,8 @@ public class GameManager : MonoBehaviour {
     public string[] eqStringArr = new string[3];
     public Text eq;
     public AudioSource sound;
-    private int first, second, sum, choice;
+    public float textSpeed = 1f;
+    private int first, second, sum, choice, correctInd;
     private List<int> numbers;
     private Vector2[] locs = new Vector2[5];
     // Use this for initialization
@@ -34,9 +34,15 @@ public class GameManager : MonoBehaviour {
     {
 
 	}
-    IEnumerator Request()
+    IEnumerator FirstRequest()
     {
-        string url = "";
+        string url = "/api_new_student";
+        WWW post = new WWW(url);
+        yield return post;
+    }
+    IEnumerator UpdateDB()
+    {
+        string url = "/api_new_student";
         WWW post = new WWW(url);
         yield return post;
     }
@@ -67,7 +73,7 @@ public class GameManager : MonoBehaviour {
         numbers.Remove(answer);
         numbers.Shuffle();
         //Set balloon colors
-        int correctInd = Random.Range(0, 4);
+        correctInd = Random.Range(0, 4);
         for (int i = 0; i < balloons.Count; ++i)
         {
             var balloon = balloons[i];
@@ -114,9 +120,20 @@ public class GameManager : MonoBehaviour {
     public void Success()
     {
         eq.color = Color.green;
-        foreach(GameObject balloon in balloons)
+        PlaySound("Success");
+        Vector2 dir = Vector2.zero;
+        Text text = balloons[correctInd].transform.GetChild(0).GetComponent<Text>();
+        dir = (eq.transform.position - text.transform.position).normalized;
+        print("Text: " + text.text);
+        StartCoroutine(Congratulate(dir, text));
+    }
+    IEnumerator Congratulate(Vector3 dir, Text text)
+    {
+        while(Vector3.Magnitude(eq.transform.position - text.transform.position) > 2f)
         {
-            Vector2 dir = (eq.transform.position - balloon.GetComponent<Text>().transform.position).normalized;
+            Vector3 newPos = text.transform.position + dir * textSpeed;
+            text.transform.position = newPos;
+            yield return new WaitForSeconds(.05f);
         }
     }
 }
