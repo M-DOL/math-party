@@ -61,7 +61,7 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
     var ajaxCall = $interval(function() {
         $http.get("/api/api_class").then( function(response) {
             console.log(response);
-            $scope.students = response.students;
+            $scope.students = response.data.students;
         });
     }, refreshRate);
     
