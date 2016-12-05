@@ -46,11 +46,11 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
         }
     }
     
- /*   var ajaxCall = $interval(function() {
-        $http.get(api/api_class).then( function(response) {
+    var ajaxCall = $interval(function() {
+        $http.get('../controllers/api_class.py').then( function(response) {
             console.log(response);
             $scope.students = response.students;
         });
-    }, refreshRate);*/
+    }, refreshRate);
     
 }]);
