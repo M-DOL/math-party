@@ -1,0 +1,45 @@
+<h2>ASSET CREDIT</h2>
+<h5>IMAGES</h5>
+<ul>
+<li>Lollipop icon from http://res.freestockphotos.biz/pictures/14/14220-illustration-of-a-lollipop-pv.png</li>
+<li>Sweet icons from http://all-free-download.com/free-vector/download/sweets_and_candies_icons_set_312069.html by BSG Studios</li>
+<li>Football icon from https://pixabay.com/static/uploads/photo/2014/03/25/16/27/football-297151_960_720.png</li>
+<li>Barricade from http://opengameart.org/content/barricade</li>
+<li>Spikes from http://modx.members-support.com/ClashOfChampions%20Sample%20Images/CITY%20TILES/defenses%20-%20wall/</li>
+<li>Town Square tiles from https://www.assetstore.unity3d.com/en/#!/content/18683</li>
+<li>Children Sprites (children_rpgmaker) from http://orig15.deviantart.net/1a0c/f/2014/036/4/5/rpg_maker_vx___xp_to_vx_children_by_qtpi_0121-d759s3z.png</li>
+	- Originally generated from RPG Maker VX Ace (http://www.rpgmakerweb.com/products/programs/rpg-maker-vx-ace#features)</li>
+<li>Archer Sprite from http://opengameart.org/sites/default/files/styles/watermarked/public/oga_preview.png</li>
+<li>Cogs from http://opengameart.org/sites/default/files/styles/watermarked/public/Cog%20Sprites%202.png</li>
+<li>Houses from http://pixeljoint.com/pixelart/49968.htm</li>
+<li>Schoolhouse from http://orig10.deviantart.net/6581/f/2013/010/2/d/isometric_school_by_barbedwiire-d5r18fj.png by barbedwiire</li>
+<li>Flag partially from http://www.mariowiki.com/images/0/0f/OvertheFlagpole.png and modified by us</li>
+<li>Playground sprites from http://flamingteddyproductions.tumblr.com/image/97875516544 by Flaming Teddy Productions</li>
+<li>Gate sprites from http://opengameart.org/content/more-isometric-parts</li>
+<li>Dialogue NPC sprites from http://bbs.tohkalove.com/data/attachment/forum/201502/28/142415iedpt7zmbiqek12p.png</li>
+<li>Dialogue School Background sprite from http://3.bp.blogspot.com/-BaM3uIkquFY/VW_EU3yGhSI/AAAAAAAAAEA/d4ToD7_WOdA/s1600/school.gif</li>
+<li>Boost Drink Sprite from http://www.clker.com/cliparts/6/1/6/6/11971145301735854296jonata_Cola.svg.hi.png</li>
+<li>Tunnel Exit Sprite from http://www.yticamps.com/sbutler/Sprites/Maze%20-%20Platform/exitsign.png</li>
+<li>Tunnel Sprite from Prison Architect http://s1065.photobucket.com/user/wildbillhdmax01/media/tileset_zpscd06115b.png.html </li>
+<li>Santa Sprite from http://icons.iconseeker.com/png/fullsize/quickpix-2006/santa-sprite.png</li>
+<li>School Desks and school stuff from https://ccrgeek.wordpress.com/category/rpg-maker/</li>
+<li>School Teachers from http://i1144.photobucket.com/albums/o497/lapeezlazuli/FI/char_sample_zpsef814b4c.png (but also originally from RPG Maker VX Ace)</li>
+<li>Fences from http://orig06.deviantart.net/87c7/f/2013/215/9/a/rpg_maker_vx___fences_by_ayene_chan-d6gfbfd.png by ayene_chan</li>
+<li>Baseball bat icon from http://s126.photobucket.com/user/ArianatheEchidna/media/costomspritebat.png.html by AriantheEchidna</li>
+<li>Wrench icon from http://www.serebii.net/blackwhite/accessories/wrench.png</li>
+</ul>
+
+<h5>SOUNDS</h5>
+<ul>
+<li>Purchase Accepted Sound from http://www.freesound.org/people/creek23/sounds/75235/ by creek23</li>
+<li>Denial Sound from http://www.freesound.org/people/suntemple/sounds/249300/ by suntemple</li>
+<li>Wave Start from https://www.facebook.com/SoundEffectsFactory/ by SoundEffectsFactory</li>
+<li>Candy Collect from http://www.freesound.org/people/totya/sounds/155668/ by totya</li>
+<li>Music from http://www.newgrounds.com/audio/listen/660305 by megawolf77</li>
+<li>House capture sound from https://freesound.org/people/LittleRobotSoundFactory/sounds/270404/</li>
+<li>Wave screen music from http://www.newgrounds.com/audio/listen/563364 by GrandVision</li>
+<li>Balloon Pop from https://www.freesound.org/people/Huminaatio/sounds/266981/</li>
+<li>Throw from https://www.freesound.org/people/CGEffex/sounds/123222/</li>
+<li>Buzzer by  License: Attribution 3.0 | Recorded by Mark DiAngelo |
+at http://soundbible.com/1973-Electric-Razor.html</li>
+</ul>
