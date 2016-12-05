@@ -22,11 +22,11 @@ def api_new_student_route():
 		# 	print 'name field required'
 		# 	return jsonify(errors=dbquery.NOT_ENOUGH_FIELD_422), 422
 		
-		# studentList = dbquery.getStudentList()
+		studentList = dbquery.getStudentList()
 
-		# # insert student into class if not entered yet
-		# if studentJSON['name'] not in studentList:
-		# 	insertStudent(studentJSON['name'])
+		# insert student into class if not entered yet
+		if studentJSON['name'] not in studentList:
+			dbquery.insertStudent(studentJSON['name'])
 		
 		# On successful update, return a status code of 200
 		return jsonify(studentJSON), 200

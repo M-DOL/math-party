@@ -7,7 +7,7 @@ app.config(['$interpolateProvider', function($interpolateProvider) {
 
 app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope, $http, $interval) {
 
-    var refreshRate = 500;
+    var refreshRate = 5000;
 /*    
     var studentA = {
         name: "John Doe",
@@ -46,7 +46,8 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
 */
     $scope.set_style = function(student) {
         console.log(student.accuracy);
-        var accuracy = student.num_correct / student.num_attempted;
+        student.accuracy = student.num_correct / student.num_attempted;
+        console.log(student.accuracy);
         if (student.accuracy <= 0.50) {
             return {backgroundColor : "red", height: 100 + '%', overflow: "hidden", textAlign: "center"}
         }

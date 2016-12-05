@@ -9,42 +9,46 @@ def api_class_route():
 	
 	if request.method == 'GET':
 		
-		# classList = dbquery.getClass()
+		classList = {}
 
-		# return jsonify(classList), 200
+		classList['students'] = dbquery.getClass()
 
-
-		classList = {
-
-		"students" :	[
-				{
-					"name" : "Peter Parker",
-					"num_correct" : 10,
-					"num_attempted" : 11,
-					"avg_time" : 30,
-					# "badges" : {
-
-					# 	# TODO
-
-					# }
-				},
-
-				{
-					"name" : "Mary Jane Watson",
-					"num_correct" : 12,
-					"num_attempted" : 15,
-					"avg_time" : 25,
-					# "badges" : {
-
-					# 	# TODO
-
-					# }
-				}
-
-			]
-		}
+		print classList
 
 		return jsonify(classList), 200
+
+
+		# classList = {
+
+		# "students" :	[
+		# 		{
+		# 			"name" : "Peter Parker",
+		# 			"num_correct" : 10,
+		# 			"num_attempted" : 11,
+		# 			"avg_time" : 30,
+		# 			# "badges" : {
+
+		# 			# 	# TODO
+
+		# 			# }
+		# 		},
+
+		# 		{
+		# 			"name" : "Mary Jane Watson",
+		# 			"num_correct" : 12,
+		# 			"num_attempted" : 15,
+		# 			"avg_time" : 25,
+		# 			# "badges" : {
+
+		# 			# 	# TODO
+
+		# 			# }
+		# 		}
+
+		# 	]
+		# }
+
+		# return jsonify(classList), 200
 	
 
 	elif request.method == 'PUT': 

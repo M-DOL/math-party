@@ -1,5 +1,3 @@
-'''
-
 import MySQLdb
 import MySQLdb.cursors
 import config
@@ -17,4 +15,3 @@ def connect_to_database():
   return db
 
 db = connect_to_database()
-'''
