@@ -9,14 +9,12 @@ NOT_FOUND_404 = [{'message':'The requested resource could not be found'}]
 ####### DB HELPER FUNCTION #########
 # execute query string and return fetched result
 def _dbresults(query):
-	print("dbresults")
 	cur = db.cursor()
 	cur.execute(query)
 	return cur.fetchall()
 
 # only execute query string without returning. Used when saving or deleting from database
 def _dbexecute(query):
-	print("dbexecute")
 	cur = db.cursor()
 	cur.execute(query)
 
@@ -24,24 +22,25 @@ def _dbexecute(query):
 ###### USER TABLE #######
 
 def getClass():
-	print("getClass")
 	query = 'SELECT * \
 			FROM Class'
 	return _dbresults(query)
 
 def insertStudent(name):
-	print("insertStudent")
+	# initalize student entry
 	query = 'INSERT INTO Class(name, num_correct, num_attempted, avg_time) \
 			VALUES("%s", 0, 0, 0)' % (name)
 	_dbexecute(query)
 
 def updateStudent(name, result, time):
 	print("updateStudent")
+	# get the specified student
 	query = 'SELECT * \
 			FROM Class \
 			WHERE name="%s"' %(name)
 	studentTuple = _dbresults(query)
-	print(studentTuple)
+	
+	# update the student information
 	student = studentTuple[0]
 	new_num_correct = student['num_correct'] + result
 	new_num_attempted = student['num_attempted'] + 1
@@ -51,11 +50,11 @@ def updateStudent(name, result, time):
 	_dbexecute(query)
 
 def getStudentList():
-	print("getStudentList")
 	query = 'SELECT * \
 			FROM Class'
 	classTuple = _dbresults(query)
 	studentList = []
+	# loop through all student objects and build dictionary of names
 	for studentDict in classTuple:
 		studentList.append(studentDict['name'])
 	return studentList	
