@@ -18,11 +18,10 @@ def api_class_route():
 						"num_correct" : 10,
 						"num_attempted" : 11,
 						"avg_time" : 30,
-						# "badges" : {
-
-						# 	# TODO
-
-						# }
+						"right_in_a_row": 3,
+						"badge_1" : false, # has not yet earned first badge
+						"badge_2" : false,
+						"badge_3" : false
 					},
 
 					{
@@ -30,11 +29,10 @@ def api_class_route():
 						"num_correct" : 12,
 						"num_attempted" : 15,
 						"avg_time" : 25,
-						# "badges" : {
-
-						# 	# TODO
-
-						# }
+						"right_in_a_row": 3,
+						"badge_1" : true, # has earned first badge
+						"badge_2" : false,
+						"badge_3" : false
 					}
 
 				]
@@ -49,28 +47,28 @@ def api_class_route():
 
 
 	elif request.method == 'PUT': 
+		
 		'''
 		PUT JSON sample
 		{
 			"name" : "Peter Parker",
-			"result" : 1,	# 0 for incorrect
-			"time" : 35, 	# time in seconds spent on the problem
-			"badges" : {
-
-				# TODO
-
-			}
+			"result" : 1,	# 1 for correct, 0 for incorrect
+			"time" : 35 	# time in seconds spent on the problem
 		}
 		'''	
+
 
 		studentJSON = request.get_json()
 		print 'received student:', studentJSON
 
 		# TODO implement badges update
 		dbquery.updateStudent(studentJSON['name'], studentJSON['result'], studentJSON['time'])
-		
+
+		studentJSONupdated = dbquery.getStudent(studentJSON['name'])[0]
+		print 'updated student:', studentJSONupdated
+
 		# On successful update, return a status code of 200
-		return jsonify(studentJSON), 200
+		return jsonify(studentJSONupdated), 200
 
 	else :
 		pass

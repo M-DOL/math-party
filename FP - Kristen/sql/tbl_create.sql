@@ -3,5 +3,9 @@ CREATE TABLE  Class(
      num_correct INT,
      num_attempted INT,
      avg_time INT,
+     right_in_a_row INT,
+     badge_1 Boolean,
+     badge_2 Boolean,
+     badge_3 Boolean,
      PRIMARY KEY(name)
 );
