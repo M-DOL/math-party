@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets._Scripts.Utils;
 using UnityEngine.Networking;
-
 public class GameManager : MonoBehaviour {
     public GameObject dartPrefab, balloonPrefab;
     public Transform ballTrans;
@@ -16,12 +15,14 @@ public class GameManager : MonoBehaviour {
     public Text eq;
     public AudioSource sound;
     public float textSpeed = 1f;
+    private float startTime;
     private int first, second, sum, choice, correctInd;
     private List<int> numbers;
     private Vector2[] locs = new Vector2[5];
     // Use this for initialization
     void Start ()
     {
+        FirstRequest("Beyoncé");
         numbers = Enumerable.Range(0, 10).ToList();
         for (int i = 0; i < 5; ++i)
         {
@@ -36,22 +37,23 @@ public class GameManager : MonoBehaviour {
     {
 
 	}
-   /* IEnumerator FirstRequest()
+    IEnumerator FirstRequest(string name)
     {
-        string url = "/api_class";
-
-        //UploadHandlerRaw uH = new UploadHandlerRaw(bytes);
-        //UnityWebRequest req = new UnityWebRequest(url, "PUT", ); 
-        //yield return post;
-    }
-    IEnumerator UpdateDB()
-    {
+        string json = string.Format("{\"name\": {0}}", name);
         string url = "/api_new_student";
-        WWW post = new WWW(url);
-        yield return post;
-    }*/
+        UnityWebRequest req = UnityWebRequest.Put(url, json);
+        yield return req.Send();
+    }
+    IEnumerator UpdateDB(string name, bool result, float time)
+    {
+        string json = string.Format("{\"name\": {0}, \"result\" : {1}, \"time\"{2}}", name, result, time);
+        string url = "/api_class";
+        UnityWebRequest req = UnityWebRequest.Put(url, json);
+        yield return req.Send();
+    }
     void NewQuestion()
     {
+        startTime = Time.time;
         //Generate equation
         eqArr[0] = Random.Range(0, 9);
         while(eqArr[2] < eqArr[0])
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour {
     }
     public void Fail()
     {
+        UpdateDB("Beyoncé", false, Time.time - startTime);
         PlaySound("Incorrect");
         eq.text = System.String.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2]);
         eq.color = Color.red;
@@ -123,6 +126,7 @@ public class GameManager : MonoBehaviour {
     }
     public void Success()
     {
+        UpdateDB("Beyoncé", true, Time.time - startTime);
         eq.color = Color.green;
         PlaySound("Success");
         Vector2 dir = Vector2.zero;
