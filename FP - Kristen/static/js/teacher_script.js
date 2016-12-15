@@ -8,7 +8,7 @@ app.config(['$interpolateProvider', function($interpolateProvider) {
 app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope, $http, $interval) {
 
     var refreshRate = 5000;
-/*    
+    
     var studentA = {
         name: "John Doe",
         accuracy: 0.4
@@ -31,7 +31,7 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
     };
 
     var students_array = [studentA, studentB, studentC, studentD, studentE];
-    */
+    
 
     var students_array = []
 
@@ -45,7 +45,6 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
     }, 5000);
 */
     $scope.set_style = function(student) {
-        console.log(student.accuracy);
         student.accuracy = student.num_correct / student.num_attempted;
         console.log(student.accuracy);
         if (student.accuracy <= 0.50) {
@@ -59,11 +58,11 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
         }
     }
     
-    var ajaxCall = $interval(function() {
+   /* var ajaxCall = $interval(function() {
         $http.get("/api/api_class").then( function(response) {
             console.log(response);
             $scope.students = response.data.students;
         });
-    }, refreshRate);
+    }, refreshRate);*/
     
 }]);
