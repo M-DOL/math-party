@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using Assets._Scripts.Utils;
+using UnityEngine.Networking;
+
 public class GameManager : MonoBehaviour {
     public GameObject dartPrefab, balloonPrefab;
     public Transform ballTrans;
@@ -34,18 +36,20 @@ public class GameManager : MonoBehaviour {
     {
 
 	}
-    IEnumerator FirstRequest()
+   /* IEnumerator FirstRequest()
     {
-        string url = "/api_new_student";
-        WWW post = new WWW(url);
-        yield return post;
+        string url = "/api_class";
+
+        //UploadHandlerRaw uH = new UploadHandlerRaw(bytes);
+        //UnityWebRequest req = new UnityWebRequest(url, "PUT", ); 
+        //yield return post;
     }
     IEnumerator UpdateDB()
     {
         string url = "/api_new_student";
         WWW post = new WWW(url);
         yield return post;
-    }
+    }*/
     void NewQuestion()
     {
         //Generate equation
