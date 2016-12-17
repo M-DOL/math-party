@@ -27,7 +27,17 @@
 <li>Fences from http://orig06.deviantart.net/87c7/f/2013/215/9/a/rpg_maker_vx___fences_by_ayene_chan-d6gfbfd.png by ayene_chan</li>
 <li>Baseball bat icon from http://s126.photobucket.com/user/ArianatheEchidna/media/costomspritebat.png.html by AriantheEchidna</li>
 <li>Wrench icon from http://www.serebii.net/blackwhite/accessories/wrench.png</li>
+<li>New Backgrounds from https://mobilegamegraphics.com/product/free-parallax-backgrounds/</li>
+<li>Trees from http://opengameart.org/content/tree-with-roots</li>
+<li>Grass tile from http://opengameart.org/content/planetcute-grass-blockpng</li>
+<li>Sky from http://opengameart.org/content/sky-backdrop</li>
+<li>Bushes from http://opengameart.org/content/bush-png</li>
+<li>Fence from http://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Fences-PNG-Clipart/Wooden_Fence_Clipart_Picture.png?m=1429546995</li>
 </ul>
+
+
+
+
 
 <h5>SOUNDS</h5>
 <ul>

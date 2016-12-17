@@ -35,9 +35,18 @@
     .row {
         height: 200px;
     }
-    [class*="col-"] {
+    .grid {
         border-left: 5px solid white;
         border-top: 5px solid white;
+    }
+    .pictures {
+        position: absolute;
+        bottom: 5px;
+    }
+    .limit img {
+        height:50%;
+        width:50%;
+        padding-bottom: 0px;
     }
 </style>
     
@@ -48,12 +57,39 @@
     
 <div class = "container" ng-controller="studentsGrid"> 
     <div class ="row">
-        <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4"
+        <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 grid"
                 ng-repeat="student in students"
                 ng-style = "set_style(student)"
-                ng-if="student != null">
-                <h5> {a student.name a} </h5>
-                <img ng-src = "static/images/lol.jpg" ng-if="student.badge1 == true">
+                ng-if="student != null"
+                ng-mouseover="focus = true"
+                ng-mouseleave="focus = false">
+                <h2> {a student.name a} </h2>
+            
+                <div class="details" ng-if="focus == true"> 
+                    <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6">
+                        Number Correct: {a student.num_correct a}
+                    </div>
+                    <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6">
+                        Number Attempted: {a student.num_attempted a}
+                    </div>
+                </div>
+            
+                <div class="pictures">
+                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 limit"
+                         ng-if="student.badge_1 == true">
+                            <img ng-src="badge1.png">
+                    </div>
+
+                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 limit"
+                         ng-if="student.badge_2 == true">
+                            <img ng-src="badge2.png">
+                    </div>
+
+                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 limit"
+                         ng-if="student.badge_3 == true">
+                            <img ng-src="badge3.png">
+                    </div>
+                </div>
         </div>
     </div>
 </div><!-- end of container-->

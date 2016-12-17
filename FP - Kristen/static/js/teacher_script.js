@@ -6,7 +6,7 @@ app.config(['$interpolateProvider', function($interpolateProvider) {
 }]);
 
 app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope, $http, $interval) {
-
+    $scope.hover = false;
     var refreshRate = 5000;
     
     var studentA = {
