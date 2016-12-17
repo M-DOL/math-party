@@ -2,6 +2,7 @@ var app = angular.module('MathPartyTeacher', []);
 
 app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope, $http, $interval) {
     var refreshRate = 5000;
+    var minBadge = 0;
     
     var studentA = {
         name: "John Doe",
@@ -33,9 +34,27 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
     }, 5000);
     
     $scope.set_style = function(student) {
+        var more_advanced = false;
         console.log(student.accuracy);
         var accuracy = student.num_correct / student.num_attempted;
-        if (student.accuracy <= 0.50) {
+        
+        if (min_badge == 0) {
+            if (student.badge_1) {
+                more_advanced = true;
+            }
+        }
+        else if (min_badge == 1) {
+            if (student.badge_2) {
+                more_advanced = true;
+            }
+        }
+        else {
+            if (student.badge_3) {
+                more_advanced = true;
+            }
+        }
+        
+        if (student.accuracy <= 0.50 && !more_advanced) {
             return {backgroundColor : "red", height: 100 + '%', overflow: "hidden", textAlign: "center"}
         }
         else if (student.accuracy <= 0.75) {
@@ -50,6 +69,17 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
         $http.get('../controllers/api_class.py').then( function(response) {
             console.log(response);
             $scope.students = response.students;
+            for (student in response.students) {
+                if (!student.badge_1 && !student.badge_2 && !student.badge_3) {
+                    min_badge = 0;
+                }
+                else if (!student.badge_3 && !student.badge_2 && min_badge > 1) {
+                    min_badge = 1;
+                }
+                else if (!student.badge_3 && min_badge > 2) {
+                    min_badge = 2;
+                }
+            }
         });
     }, refreshRate);
     
