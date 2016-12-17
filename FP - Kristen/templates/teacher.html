@@ -62,15 +62,15 @@
                 ng-style = "set_style(student)"
                 ng-if="student != null"
                 ng-mouseover="focus = true"
-                ng-mouseleave="focus = false">>
+                ng-mouseleave="focus = false">
                 <h2> {a student.name a} </h2>
             
                 <div class="details" ng-if="focus == true"> 
                     <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6">
-                        Number Correct: {{student.num_correct}}
+                        Number Correct: {a student.num_correct a}
                     </div>
                     <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6">
-                        Number Attempted: {{student.num_attempted}}
+                        Number Attempted: {a student.num_attempted a}
                     </div>
                 </div>
             
