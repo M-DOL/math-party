@@ -4,7 +4,7 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
     var refreshRate = 5000;
     var minBadge = 0;
     
-    var studentA = {
+    /*var studentA = {
         name: "John Doe",
         accuracy: 0.4
     };
@@ -12,7 +12,7 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
         name: "test2",
         accuracy: 0.6
     };
-    var studentC = {
+    var s   tudentC = {
         name: "test3",
         accuracy: 0.95
     };
@@ -31,11 +31,10 @@ app.controller("studentsGrid", ['$scope', '$http', '$interval', function($scope,
         studentA.accuracy += 0.1;
         students_array = [studentA, studentB, studentC, studentD, studentE];
         $scope.students = students_array;
-    }, 5000);
+    }, 5000);*/
     
     $scope.set_style = function(student) {
         var more_advanced = false;
-        console.log(student.accuracy);
         var accuracy = student.num_correct / student.num_attempted;
         
         if (min_badge == 0) {
