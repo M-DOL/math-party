@@ -4,7 +4,7 @@ import sqlite3
 ####### HTTP RESPONSE MESSAGE #######
 NOT_ENOUGH_FIELD_422 = [{'message':'You did not provide the necessary fields'}]
 NOT_FOUND_404 = [{'message':'The requested resource could not be found'}]
-conn = sqlite3.connect('../DB/final_project.db')
+conn = sqlite3.connect('../DB/final_project.db', check_same_thread=False)
 
 ####### DB HELPER FUNCTION #########
 # execute query string and return fetched result
@@ -35,7 +35,7 @@ def getStudent(name):
 def insertStudent(name):
 	# initalize student entry
 	query = 'INSERT INTO Class(name, num_correct, num_attempted, avg_time, right_in_a_row, badge_1, badge_2, badge_3) \
-			VALUES("%s", 0, 0, 0, 0, False, False, False)' % (name)
+			VALUES("%s", 0, 0, 0, 0, 0, 0, 0)' % (name)
 	_dbexecute(query)
 
 def updateStudent(name, result, time):
@@ -65,13 +65,13 @@ def updateStudent(name, result, time):
 	# if student has 7 right in a row, give the student the next badge
 	if new_right_in_a_row == 7:
 		if not student['badge_1']:
-			new_badge_1 = True
+			new_badge_1 = 1
 			new_right_in_a_row = 0
 		elif not student['badge_2']:
-			new_badge_2 = True
+			new_badge_2 = 1
 			new_right_in_a_row = 0
 		elif not student['badge_3']:
-			new_badge_3 = True
+			new_badge_3 = 1
 
 	query = 'UPDATE Class \
 			SET num_correct=%s, num_attempted=%s, avg_time=%s, right_in_a_row=%s, badge_1=%s, badge_2=%s, badge_3=%s \
@@ -81,10 +81,8 @@ def updateStudent(name, result, time):
 def getStudentList():
 	query = 'SELECT * \
 			FROM Class'
-	classTuple = _dbresults(query)
-	studentList = []
-	# loop through all student objects and build dictionary of names
-	for studentDict in classTuple:
-		studentList.append(studentDict['name'])
-	return studentList	
+	
+	print(_dbresults(query))
+	return ""
+
 
