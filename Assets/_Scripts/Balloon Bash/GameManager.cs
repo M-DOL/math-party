@@ -16,14 +16,25 @@ public class GameManager : MonoBehaviour {
     public AudioSource sound;
     public float textSpeed = 1f;
     private float startTime;
-    private int first, second, sum, choice, correctInd;
+    private int first, second, sum, choice, correctInd, correctThres = 10;
     private List<int> numbers;
     private Vector2[] locs = new Vector2[5];
+    private int correct = 0, incorrect = 0, level = 0;
+    private string playerName = "";
+    public Image currEnvironment;
+    public InputField nameIn;
+    public GameObject startPanel;
+    public Sprite[] environments;
     // Use this for initialization
     void Start ()
     {
-        FirstRequest("Beyoncé");
         numbers = Enumerable.Range(0, 10).ToList();
+    }
+	public void StartGame()
+    {
+        playerName = nameIn.text;
+        Destroy(startPanel);
+        FirstRequest(playerName);
         for (int i = 0; i < 5; ++i)
         {
             locs[i] = balloons[i].transform.position;
@@ -31,7 +42,6 @@ public class GameManager : MonoBehaviour {
         //Sets up question
         NewQuestion();
     }
-	
 	// Update is called once per frame
 	void Update ()
     {
@@ -98,6 +108,7 @@ public class GameManager : MonoBehaviour {
     }
     public void Fail()
     {
+        ++incorrect;
         UpdateDB("Beyoncé", false, Time.time - startTime);
         PlaySound("Incorrect");
         eq.text = System.String.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2]);
@@ -124,8 +135,14 @@ public class GameManager : MonoBehaviour {
         eq.color = Color.black;
         NewQuestion();
     }
+    public void NewLevel()
+    {
+        ++level;
+        currEnvironment.sprite = environments[level];
+    }
     public void Success()
     {
+        ++correct;
         UpdateDB("Beyoncé", true, Time.time - startTime);
         eq.color = Color.green;
         PlaySound("Success");
@@ -134,6 +151,10 @@ public class GameManager : MonoBehaviour {
         dir = (eq.transform.position - text.transform.position).normalized;
         print("Text: " + text.text);
         StartCoroutine(Congratulate(dir, text));
+        if(correct > correctThres)
+        {
+            NewLevel();
+        }
     }
     IEnumerator Congratulate(Vector3 dir, Text text)
     {
@@ -143,5 +164,6 @@ public class GameManager : MonoBehaviour {
             text.transform.position = newPos;
             yield return new WaitForSeconds(.05f);
         }
+
     }
 }

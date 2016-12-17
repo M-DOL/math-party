@@ -1,21 +1,21 @@
-from extensions import db
-
+#from extensions import db
+import sqlite3
 
 ####### HTTP RESPONSE MESSAGE #######
 NOT_ENOUGH_FIELD_422 = [{'message':'You did not provide the necessary fields'}]
 NOT_FOUND_404 = [{'message':'The requested resource could not be found'}]
-
+conn = sqlite3.connect('../DB/final_project.db')
 
 ####### DB HELPER FUNCTION #########
 # execute query string and return fetched result
 def _dbresults(query):
-	cur = db.cursor()
+	cur = conn.cursor()
 	cur.execute(query)
 	return cur.fetchall()
 
 # only execute query string without returning. Used when saving or deleting from database
 def _dbexecute(query):
-	cur = db.cursor()
+	cur = conn.cursor()
 	cur.execute(query)
 
 

@@ -41,7 +41,6 @@ public class Dart : MonoBehaviour {
     {
         manage.PlaySound("Pop");
         MakeDart();
-        Vector2 spawn = new Vector2(coll.transform.position.x, coll.transform.position.y);
         bool corr = coll.transform.GetComponent<Balloon>().correct, succ = coll.transform.parent.childCount == 2;
         Destroy(coll.transform.gameObject);
         Destroy(gameObject);
