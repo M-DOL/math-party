@@ -5,6 +5,7 @@ import sqlite3
 NOT_ENOUGH_FIELD_422 = [{'message':'You did not provide the necessary fields'}]
 NOT_FOUND_404 = [{'message':'The requested resource could not be found'}]
 conn = sqlite3.connect('/Users/Fritz/Desktop/EECS 493/math-party/FP - Kristen/DB/final_project.db', check_same_thread=False)
+conn.isolation_level = None
 
 ####### DB HELPER FUNCTION #########
 # execute query string and return fetched result
@@ -17,7 +18,6 @@ def _dbresults(query):
 def _dbexecute(query):
 	cur = conn.cursor()
 	cur.execute(query)
-
 
 ###### Class TABLE #######
 
