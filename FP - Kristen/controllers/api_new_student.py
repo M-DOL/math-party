@@ -23,8 +23,8 @@ def api_new_student_route():
 		print studentList
 
 		# # insert student into class if not entered yet
-		# if studentJSON['name'] not in studentList:
-		dbquery.insertStudent(studentJSON['name'])
+		if studentJSON['name'] not in studentList:
+			dbquery.insertStudent(studentJSON['name'])
 
 		studentUpdated = dbquery.getStudent(studentJSON['name'])[0]
 		

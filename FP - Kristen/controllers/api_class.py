@@ -41,7 +41,25 @@ def api_class_route():
 
 
 		classList = {}
-		classList['students'] = dbquery.getClass()
+		formatted = []
+		unformatted = dbquery.getClass()
+
+		for studentUpdated in unformatted:
+			studentJSONupdated = {}
+			studentJSONupdated['name'] = studentUpdated[0]
+			studentJSONupdated['num_correct'] = studentUpdated[1]
+			studentJSONupdated['num_attempted'] = studentUpdated[2]
+			studentJSONupdated['avg_time'] = studentUpdated[3]
+			studentJSONupdated['right_in_a_row'] = studentUpdated[4]
+			studentJSONupdated['badge_1'] = studentUpdated[5]
+			studentJSONupdated['badge_2'] = studentUpdated[6]
+			studentJSONupdated['badge_3'] = studentUpdated[7]
+			formatted.append(studentJSONupdated)
+
+		classList['students'] = formatted
+
+		print(classList)
+		
 
 		return jsonify(classList), 200
 
@@ -64,7 +82,17 @@ def api_class_route():
 		# TODO implement badges update
 		dbquery.updateStudent(studentJSON['name'], studentJSON['result'], studentJSON['time'])
 
-		studentJSONupdated = dbquery.getStudent(studentJSON['name'])[0]
+		studentUpdated = dbquery.getStudent(studentJSON['name'])[0]
+
+		studentJSONupdated = {}
+		studentJSONupdated['name'] = studentUpdated[0]
+		studentJSONupdated['num_correct'] = studentUpdated[1]
+		studentJSONupdated['num_attempted'] = studentUpdated[2]
+		studentJSONupdated['avg_time'] = studentUpdated[3]
+		studentJSONupdated['right_in_a_row'] = studentUpdated[4]
+		studentJSONupdated['badge_1'] = studentUpdated[5]
+		studentJSONupdated['badge_2'] = studentUpdated[6]
+		studentJSONupdated['badge_3'] = studentUpdated[7]
 		print 'updated student:', studentJSONupdated
 
 		# On successful update, return a status code of 200

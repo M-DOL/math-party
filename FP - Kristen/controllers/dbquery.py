@@ -4,7 +4,7 @@ import sqlite3
 ####### HTTP RESPONSE MESSAGE #######
 NOT_ENOUGH_FIELD_422 = [{'message':'You did not provide the necessary fields'}]
 NOT_FOUND_404 = [{'message':'The requested resource could not be found'}]
-conn = sqlite3.connect('../DB/final_project.db', check_same_thread=False)
+conn = sqlite3.connect('/Users/Fritz/Desktop/EECS 493/math-party/FP - Kristen/DB/final_project.db', check_same_thread=False)
 
 ####### DB HELPER FUNCTION #########
 # execute query string and return fetched result
@@ -45,32 +45,34 @@ def updateStudent(name, result, time):
 			WHERE name="%s"' % (name)
 	studentTuple = _dbresults(query)
 	
+	# name, num_correct, num_attempted, avg_time, right_in_a_row, badge_1, badge_2, badge_3
+
 	# update the student information
 	student = studentTuple[0]
-	new_num_correct = student['num_correct'] + result
-	new_num_attempted = student['num_attempted'] + 1
-	new_avg_time = ((student['avg_time'] * student['num_attempted']) + time) / new_num_attempted
+	new_num_correct = student[1] + result
+	new_num_attempted = student[2] + 1
+	new_avg_time = ((student[3] * student[2]) + time) / new_num_attempted
 
 	new_right_in_a_row = 0
 
 	# if student gets a question right, update right_in_a_row 
 	if result == 1:
-		new_right_in_a_row = student['right_in_a_row'] + 1
+		new_right_in_a_row = student[4] + 1
 
 	# note badge status
-	new_badge_1 = student['badge_1']
-	new_badge_2 = student['badge_2']
-	new_badge_3 = student['badge_3']
+	new_badge_1 = student[5]
+	new_badge_2 = student[6]
+	new_badge_3 = student[7]
 
 	# if student has 7 right in a row, give the student the next badge
 	if new_right_in_a_row == 7:
-		if not student['badge_1']:
+		if not student[5]:
 			new_badge_1 = 1
 			new_right_in_a_row = 0
-		elif not student['badge_2']:
+		elif not student[6]:
 			new_badge_2 = 1
 			new_right_in_a_row = 0
-		elif not student['badge_3']:
+		elif not student[7]:
 			new_badge_3 = 1
 
 	query = 'UPDATE Class \
@@ -82,7 +84,11 @@ def getStudentList():
 	query = 'SELECT * \
 			FROM Class'
 	
-	print(_dbresults(query))
-	return ""
+	students = _dbresults(query)
+	print(students)
+	studentNames = []
+	for i in students:
+		studentNames.append(i[0])
+	return studentNames
 
 
