@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets._Scripts.Utils;
 using UnityEngine.Networking;
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    public int correctThres = 7;
     public GameObject dartPrefab, balloonPrefab;
     public Transform ballTrans;
     public List<GameObject> balloons;
@@ -16,21 +18,22 @@ public class GameManager : MonoBehaviour {
     public AudioSource sound;
     public float textSpeed = 1f;
     private float startTime;
-    private int first, second, sum, choice, correctInd, correctThres = 10;
+    private int first, second, sum, choice, correctInd;
     private List<int> numbers;
     private Vector2[] locs = new Vector2[5];
-    private int correct = 0, incorrect = 0, level = 0;
+    private int correct = 0, incorrect = 0, level = 0, ind1, ind2;
     private string playerName = "";
     public Image currEnvironment;
     public InputField nameIn;
     public GameObject startPanel;
     public Sprite[] environments;
+    private bool add;
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         numbers = Enumerable.Range(0, 10).ToList();
     }
-	public void StartGame()
+    public void StartGame()
     {
         playerName = nameIn.text;
         Destroy(startPanel);
@@ -42,11 +45,11 @@ public class GameManager : MonoBehaviour {
         //Sets up question
         NewQuestion();
     }
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
 
-	}
+    }
     IEnumerator FirstRequest(string name)
     {
         string json = string.Format("{\"name\": {0}}", name);
@@ -61,16 +64,18 @@ public class GameManager : MonoBehaviour {
         UnityWebRequest req = UnityWebRequest.Put(url, json);
         yield return req.Send();
     }
-    void NewQuestion()
+    int GenQuestion()
     {
-        startTime = Time.time;
-        //Generate equation
-        eqArr[0] = Random.Range(0, 9);
-        while(eqArr[2] < eqArr[0])
+        add = (Random.value >= .5) || level == 0;
+        int max = level == 2 ? 20 : 9;
+        int min = level == 2 ? 7 : 0;
+        eqArr[0] = Random.Range(min, max);
+        while (eqArr[2] < eqArr[0])
         {
-            eqArr[2] = Random.Range(0, 9);
+            eqArr[2] = Random.Range(min, max);
         }
         eqArr[1] = eqArr[2] - eqArr[0];
+        print(string.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2]));
         choice = Random.Range(0, 2);
         int answer = 0;
         for (int i = 0; i < 3; ++i)
@@ -85,7 +90,15 @@ public class GameManager : MonoBehaviour {
                 eqStringArr[i] = eqArr[i].ToString();
             }
         }
-        eq.text = System.String.Format("{0} + {1} = {2}", eqStringArr[0], eqStringArr[1], eqStringArr[2]);
+        eq.text = add ? System.String.Format("{0} + {1} = {2}", eqStringArr[0], eqStringArr[1], eqStringArr[2])
+        : System.String.Format("{0} - {1} = {2}", eqStringArr[2], eqStringArr[1], eqStringArr[0]);
+        return answer;
+    }
+    void NewQuestion()
+    {
+        startTime = Time.time;
+        //Generate equation
+        int answer = GenQuestion();
         numbers.Remove(answer);
         numbers.Shuffle();
         //Set balloon colors
@@ -95,7 +108,7 @@ public class GameManager : MonoBehaviour {
             var balloon = balloons[i];
             balloon.GetComponent<Image>().color = colors[Random.Range(0, colors.Count - 1)];
             balloon.transform.GetChild(0).GetComponent<Text>().text = (correctInd == i) ? answer.ToString() : numbers[i].ToString();
-            if(correctInd == i)
+            if (correctInd == i)
             {
                 balloon.GetComponent<Balloon>().correct = true;
             }
@@ -108,25 +121,26 @@ public class GameManager : MonoBehaviour {
     }
     public void Fail()
     {
-        ++incorrect;
-        UpdateDB("Beyoncé", false, Time.time - startTime);
+        correct = 0;
+        UpdateDB(playerName, false, Time.time - startTime);
         PlaySound("Incorrect");
-        eq.text = System.String.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2]);
+        eq.text = add ? System.String.Format("{0} + {1} = {2}", eqStringArr[0], eqStringArr[1], eqStringArr[2])
+        : System.String.Format("{0} - {1} = {2}", eqStringArr[2], eqStringArr[1], eqStringArr[0]);
         eq.color = Color.red;
         StartCoroutine(PopAll());
     }
     IEnumerator PopAll()
     {
-        foreach(GameObject balloon in balloons)
+        foreach (GameObject balloon in balloons)
         {
-            if(balloon != null)
+            if (balloon != null)
             {
                 PlaySound("Pop");
                 Destroy(balloon);
                 yield return new WaitForSeconds(.5f);
             }
         }
-        for(int i = 0; i < balloons.Count; ++i)
+        for (int i = 0; i < balloons.Count; ++i)
         {
             GameObject ball = Instantiate(balloonPrefab, locs[i], Quaternion.identity) as GameObject;
             ball.transform.SetParent(ballTrans);
@@ -134,6 +148,10 @@ public class GameManager : MonoBehaviour {
         }
         eq.color = Color.black;
         NewQuestion();
+        if (correct >= correctThres && level != 2)
+        {
+            NewLevel();
+        }
     }
     public void NewLevel()
     {
@@ -143,27 +161,25 @@ public class GameManager : MonoBehaviour {
     public void Success()
     {
         ++correct;
-        UpdateDB("Beyoncé", true, Time.time - startTime);
+        UpdateDB(playerName, true, Time.time - startTime);
         eq.color = Color.green;
         PlaySound("Success");
         Vector2 dir = Vector2.zero;
         Text text = balloons[correctInd].transform.GetChild(0).GetComponent<Text>();
         dir = (eq.transform.position - text.transform.position).normalized;
-        print("Text: " + text.text);
         StartCoroutine(Congratulate(dir, text));
-        if(correct > correctThres)
-        {
-            NewLevel();
-        }
     }
     IEnumerator Congratulate(Vector3 dir, Text text)
     {
-        while(Vector3.Magnitude(eq.transform.position - text.transform.position) > 2f)
+        while (Vector3.Magnitude(eq.transform.position - text.transform.position) > 100f)
         {
             Vector3 newPos = text.transform.position + dir * textSpeed;
             text.transform.position = newPos;
             yield return new WaitForSeconds(.05f);
         }
-
+        Destroy(text.transform.gameObject);
+        eq.text = add ? System.String.Format("{0} + {1} = {2}", eqArr[ind1], eqArr[1], eqArr[ind2]) :
+            System.String.Format("{0} - {1} = {2}", eqArr[2], eqArr[1], eqArr[0]); ;
+        StartCoroutine(PopAll());
     }
 }
