@@ -94,4 +94,6 @@ def getStudentList():
 		studentNames.append(i[0])
 	return studentNames
 
-
+def emptyClass():
+	query = 'DELETE FROM Class'
+	_dbexecute(query)
