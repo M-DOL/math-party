@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
             eqArr[2] = Random.Range(min, max);
         }
         eqArr[1] = eqArr[2] - eqArr[0];
-        print(string.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2]));
         choice = Random.Range(0, 2);
         int answer = 0;
         for (int i = 0; i < 3; ++i)
@@ -124,8 +123,8 @@ public class GameManager : MonoBehaviour
         correct = 0;
         UpdateDB(playerName, false, Time.time - startTime);
         PlaySound("Incorrect");
-        eq.text = add ? System.String.Format("{0} + {1} = {2}", eqStringArr[0], eqStringArr[1], eqStringArr[2])
-        : System.String.Format("{0} - {1} = {2}", eqStringArr[2], eqStringArr[1], eqStringArr[0]);
+        eq.text = add ? System.String.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2])
+        : System.String.Format("{0} - {1} = {2}", eqArr[2], eqArr[1], eqArr[0]);
         eq.color = Color.red;
         StartCoroutine(PopAll());
     }
@@ -175,10 +174,10 @@ public class GameManager : MonoBehaviour
         {
             Vector3 newPos = text.transform.position + dir * textSpeed;
             text.transform.position = newPos;
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.03f);
         }
         Destroy(text.transform.gameObject);
-        eq.text = add ? System.String.Format("{0} + {1} = {2}", eqArr[ind1], eqArr[1], eqArr[ind2]) :
+        eq.text = add ? System.String.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2]) :
             System.String.Format("{0} - {1} = {2}", eqArr[2], eqArr[1], eqArr[0]); ;
         StartCoroutine(PopAll());
     }
