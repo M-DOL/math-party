@@ -56,18 +56,24 @@ public class GameManager : MonoBehaviour
     IEnumerator FirstRequest(string name)
     {
         string json = "{\"name\":\"" + name + "\"}";
-        string url = "http://localhost:3000/api/api_new_student";
-        UnityWebRequest req = UnityWebRequest.Post(url, json);
-        req.SetRequestHeader("Content-Type", "application/json");
-        yield return req.Send();
+        string local_url = "http://localhost:5000/api/api_new_student", hosted_url = "https://math-party.herokuapp.com/api/api_new_student";
+        UnityWebRequest local_req = UnityWebRequest.Post(local_url, json);
+        local_req.SetRequestHeader("Content-Type", "application/json");
+        yield return local_req.Send();
+        UnityWebRequest hosted_req = UnityWebRequest.Post(hosted_url, json);
+        hosted_req.SetRequestHeader("Content-Type", "application/json");
+        yield return hosted_req.Send();
     }
     IEnumerator UpdateDB(string name, bool result, float time)
     {
         string json = "{\"name\":\"" + name + "\",\"result\":" + (result ? 1: 0) + ",\"time\":" + time + "}";
-        string url = "http://localhost:3000/api/api_class";
-        UnityWebRequest req = UnityWebRequest.Post(url, json);
-        req.SetRequestHeader("Content-Type", "application/json");
-        yield return req.Send();
+        string local_url = "http://localhost:5000/api/api_class", hosted_url = "https://math-party.herokuapp.com/api/api_class";
+        UnityWebRequest local_req = UnityWebRequest.Post(local_url, json);
+        local_req.SetRequestHeader("Content-Type", "application/json");
+        yield return local_req.Send();
+        UnityWebRequest hosted_req = UnityWebRequest.Post(hosted_url, json);
+        hosted_req.SetRequestHeader("Content-Type", "application/json");
+        yield return hosted_req.Send();
     }
     int GenQuestion()
     {

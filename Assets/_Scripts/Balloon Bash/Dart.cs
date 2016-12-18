@@ -17,7 +17,7 @@ public class Dart : MonoBehaviour {
     {
         if(GameManager.S.running)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !flying)
             {
                 flying = true;
                 start = Time.time;

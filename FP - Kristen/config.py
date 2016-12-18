@@ -1,7 +1,7 @@
 
 env = dict(
 	host = 'localhost',
-	port = 3000,
+	port = 5000,
 	user = 'root', 
 	password = 'root',
 	db = 'final_project',
