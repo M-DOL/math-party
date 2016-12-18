@@ -79,12 +79,9 @@ public class GameManager : MonoBehaviour
     {
         add = (Random.value >= .5) || level == 0;
         int max = level == 2 ? 20 : 9;
-        int min = level == 2 ? 10 : 0;
-        eqArr[0] = Random.Range(min, max);
-        while (eqArr[2] < eqArr[0])
-        {
-            eqArr[2] = Random.Range(min, max);
-        }
+        int min = level == 2 ? 10 : 1;
+        eqArr[2] = Random.Range(min, max); ;
+        eqArr[0] = Random.Range(min, eqArr[2]);
         eqArr[1] = eqArr[2] - eqArr[0];
         choice = Random.Range(0, 2);
         int answer = 0;
@@ -166,6 +163,7 @@ public class GameManager : MonoBehaviour
     public void NewLevel()
     {
         ++level;
+        correct = 0;
         currEnvironment.sprite = environments[level];
     }
     public void Success()
