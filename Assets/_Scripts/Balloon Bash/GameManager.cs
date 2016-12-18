@@ -18,10 +18,10 @@ public class GameManager : MonoBehaviour
     public AudioSource sound;
     public float textSpeed = 1f;
     private float startTime;
-    private int first, second, sum, choice, correctInd;
+    private int choice, correctInd;
     private List<int> numbers;
     private Vector2[] locs = new Vector2[5];
-    private int correct = 0, incorrect = 0, level = 0, ind1, ind2;
+    private int correct = 0, level = 0;
     private string playerName = "";
     public Image currEnvironment;
     public InputField nameIn;
@@ -45,11 +45,6 @@ public class GameManager : MonoBehaviour
         //Sets up question
         NewQuestion();
     }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     IEnumerator FirstRequest(string name)
     {
         string json = string.Format("{\"name\": {0}}", name);
@@ -68,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         add = (Random.value >= .5) || level == 0;
         int max = level == 2 ? 20 : 9;
-        int min = level == 2 ? 7 : 0;
+        int min = level == 2 ? 10 : 0;
         eqArr[0] = Random.Range(min, max);
         while (eqArr[2] < eqArr[0])
         {
