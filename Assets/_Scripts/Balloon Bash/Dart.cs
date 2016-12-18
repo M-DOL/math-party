@@ -59,5 +59,7 @@ public class Dart : MonoBehaviour {
     {
         GameObject dart = Instantiate(dartPrefab, new Vector2(transform.position.x, yStart), Quaternion.identity) as GameObject;
         dart.transform.SetParent(canvas.transform);
+        dart.transform.localScale = new Vector3(1, 1, 1);
+        dart.transform.name = "Dart";
     }
 }
