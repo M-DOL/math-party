@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- 493 WARNING
+     note that the following CDN links
+     will work only when you have internet access
+     It incldues
+     jQuery
+     bootstrap
+     and
+     angular.js
+     note that jQuery is added to enable bootstrap.
+     You should NOT use jQuery.
+   -->
+
+<html lang="en-US">
+<head>
+  <title> Math Party</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="static/js/teacher_script.js"></script>
+</head>
+    
+<style>
+    h5{
+      padding-bottom: 5px;
+      padding-top: 3px;
+    }
+    .navbar{
+        text-align: center;
+    }
+    .row {
+        height: 200px;
+    }
+    .grid {
+        border-left: 5px solid white;
+        border-top: 5px solid white;
+        min-width: 200px;
+    }
+    .pictures {
+        position: absolute;
+        bottom: 5px;
+    }
+    .limit img {    
+        height:10%;
+        width:10%;
+        min-height: 40px;
+        min-width: 40px;
+    }   
+</style>
+    
+<body ng-app = "MathPartyTeacher">
+<nav class="navbar navbar-default">
+       <h3> Math Party </h3>
+</nav>
+    
+<div class = "container" ng-controller="studentsGrid"> 
+    <div class ="row">
+        <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 grid"
+                ng-repeat="student in students"
+                ng-style = "set_style(student)"
+                ng-if="student != null"
+                ng-mouseover="focus = true"
+                ng-mouseleave="focus = false">
+                <h2> {a student.name a} </h2>
+            
+                <div class="details" ng-if="focus == true"> 
+                    <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6">
+                        Number Correct: {a student.num_correct a}
+                    </div>
+                    <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6">
+                        Number Attempted: {a student.num_attempted a}
+                    </div>
+                </div>
+            
+                <div class="pictures"
+                     ng-if="student.badge_3 == true">
+                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 limit">
+                        <img ng-src="/static/images/badge1.png">
+                    </div>
+                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 limit">
+                        <img ng-src="/static/images/badge2.png">
+                    </div>
+                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4 limit">
+                        <img ng-src="/static/images/badge3.png">
+                    </div>
+                </div>
+            
+                <div class="pictures"
+                     ng-if="student.badge_2 == true && student.badge_3 == false">
+                    <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6 limit">
+                        <img ng-src="/static/images/badge1.png">
+                    </div>
+                    <div class="col-xs-6 col-lg-6 col-md-6 col-sm-6 limit">
+                        <img ng-src="/static/images/badge2.png">
+                    </div>
+                </div>
+                <div class="pictures"
+                     ng-if = "student.badge_1 == true && student.badge_2 == false && student.badge_3 == false">
+                    <div class = "col-xs-12 col-lg-12 col-md-12 col-sm-12 limit">
+                        <img ng-src = "/static/images/badge1.png">
+                    </div>
+                </div>
+        </div>
+    </div>
+</div><!-- end of container-->
+</body>
+</html>
