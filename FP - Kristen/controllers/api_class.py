@@ -1,10 +1,10 @@
 from flask import *
-import dbquery
-
+import dbquery, urllib
+from json import loads
 
 api_class = Blueprint('api_class', __name__, template_folder='templates')
 
-@api_class.route('/api_class', methods=['GET', 'PUT'])
+@api_class.route('/api_class', methods=['GET', 'POST'])
 def api_class_route():
 	
 	if request.method == 'GET':
@@ -64,7 +64,7 @@ def api_class_route():
 		return jsonify(classList), 200
 
 
-	elif request.method == 'PUT': 
+	elif request.method == 'POST':
 		
 		'''
 		PUT JSON sample
@@ -76,7 +76,9 @@ def api_class_route():
 		'''	
 
 
-		studentJSON = request.get_json()
+		
+		jsonStr = urllib.unquote(request.data).decode('utf8').replace('+', ' ')
+		studentJSON = loads(jsonStr)
 		print 'received student:', studentJSON
 
 		# TODO implement badges update

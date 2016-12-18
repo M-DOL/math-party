@@ -7,6 +7,7 @@ using Assets._Scripts.Utils;
 using UnityEngine.Networking;
 public class GameManager : MonoBehaviour
 {
+    public static GameManager S;
     public int correctThres = 7;
     public GameObject dartPrefab, balloonPrefab;
     public Transform ballTrans;
@@ -28,6 +29,11 @@ public class GameManager : MonoBehaviour
     public GameObject startPanel;
     public Sprite[] environments;
     private bool add;
+    public bool running = false;
+    void Awake()
+    {
+        S = this;
+    }
     // Use this for initialization
     void Start()
     {
@@ -35,9 +41,11 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
+        sound.Play();
+        running = true;
         playerName = nameIn.text;
         Destroy(startPanel);
-        FirstRequest(playerName);
+        StartCoroutine(FirstRequest(playerName));
         for (int i = 0; i < 5; ++i)
         {
             locs[i] = balloons[i].transform.position;
@@ -47,16 +55,18 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator FirstRequest(string name)
     {
-        string json = string.Format("{\"name\": {0}}", name);
-        string url = "/api_new_student";
-        UnityWebRequest req = UnityWebRequest.Put(url, json);
+        string json = "{\"name\":\"" + name + "\"}";
+        string url = "http://localhost:3000/api/api_new_student";
+        UnityWebRequest req = UnityWebRequest.Post(url, json);
+        req.SetRequestHeader("Content-Type", "application/json");
         yield return req.Send();
     }
     IEnumerator UpdateDB(string name, bool result, float time)
     {
-        string json = string.Format("{\"name\": {0}, \"result\" : {1}, \"time\"{2}}", name, result, time);
-        string url = "/api_class";
-        UnityWebRequest req = UnityWebRequest.Put(url, json);
+        string json = "{\"name\":\"" + name + "\",\"result\":" + (result ? 1: 0) + ",\"time\":" + time + "}";
+        string url = "http://localhost:3000/api/api_class";
+        UnityWebRequest req = UnityWebRequest.Post(url, json);
+        req.SetRequestHeader("Content-Type", "application/json");
         yield return req.Send();
     }
     int GenQuestion()
@@ -116,7 +126,7 @@ public class GameManager : MonoBehaviour
     public void Fail()
     {
         correct = 0;
-        UpdateDB(playerName, false, Time.time - startTime);
+        StartCoroutine(UpdateDB(playerName, false, Time.time - startTime));
         PlaySound("Incorrect");
         eq.text = add ? System.String.Format("{0} + {1} = {2}", eqArr[0], eqArr[1], eqArr[2])
         : System.String.Format("{0} - {1} = {2}", eqArr[2], eqArr[1], eqArr[0]);
@@ -155,7 +165,7 @@ public class GameManager : MonoBehaviour
     public void Success()
     {
         ++correct;
-        UpdateDB(playerName, true, Time.time - startTime);
+        StartCoroutine(UpdateDB(playerName, true, Time.time - startTime));
         eq.color = Color.green;
         PlaySound("Success");
         Vector2 dir = Vector2.zero;

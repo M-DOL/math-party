@@ -47,7 +47,9 @@ def updateStudent(name, result, time):
 	studentTuple = _dbresults(query)
 	
 	# name, num_correct, num_attempted, avg_time, right_in_a_row, badge_1, badge_2, badge_3
-
+	print(name)
+	print(result)
+	print(time)
 	# update the student information
 	student = studentTuple[0]
 	new_num_correct = student[1] + result

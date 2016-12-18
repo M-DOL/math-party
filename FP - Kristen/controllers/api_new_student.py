@@ -1,7 +1,7 @@
 import dbquery
 from flask import *
-
-
+from json import loads
+import urllib
 
 api_new_student = Blueprint('api_new_student', __name__, template_folder='templates')
 
@@ -14,9 +14,8 @@ def api_new_student_route():
 			"name" : "Peter Parker"
 		}
 		'''	
-
-		
-		studentJSON = request.get_json()
+		jsonStr = urllib.unquote(request.data).decode('utf8').replace('+', ' ')
+		studentJSON = loads(jsonStr)
 		print 'received student:', studentJSON
 
 		studentList = dbquery.getStudentList()

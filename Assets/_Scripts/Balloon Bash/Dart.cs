@@ -15,27 +15,30 @@ public class Dart : MonoBehaviour {
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(GameManager.S.running)
         {
-            flying = true;
-            start = Time.time;
-            manage.PlaySound("Throw");
-        }
-        Vector2 newPos = transform.position;
-        if (flying)
-        {
-            newPos.y += vertSpeed;
-            if(start + timeDur < Time.time)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                MakeDart();
-                Destroy(gameObject);
+                flying = true;
+                start = Time.time;
+                manage.PlaySound("Throw");
             }
-        }
-        else
-        {
-            newPos.x = Mathf.Clamp(newPos.x + horSpeed * Input.GetAxis("Horizontal"), 25f, 740f);
-        }
-        transform.position = newPos;
+            Vector2 newPos = transform.position;
+            if (flying)
+            {
+                newPos.y += vertSpeed;
+                if (start + timeDur < Time.time)
+                {
+                    MakeDart();
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                newPos.x = Mathf.Clamp(newPos.x + horSpeed * Input.GetAxis("Horizontal"), 25f, 740f);
+            }
+            transform.position = newPos;
+        }   
     }
 	void OnCollisionEnter2D(Collision2D coll)
     {
