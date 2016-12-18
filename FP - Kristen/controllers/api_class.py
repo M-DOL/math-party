@@ -79,6 +79,12 @@ def api_class_route():
 		studentJSON = request.get_json()
 		print 'received student:', studentJSON
 
+		studentList = dbquery.getStudentList()
+
+		# # insert student into class if not entered yet
+		if studentJSON['name'] not in studentList:
+			dbquery.insertStudent(studentJSON['name'])
+
 		# TODO implement badges update
 		dbquery.updateStudent(studentJSON['name'], studentJSON['result'], studentJSON['time'])
 
