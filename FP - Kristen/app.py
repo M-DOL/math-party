@@ -9,6 +9,7 @@ app = Flask(__name__, template_folder='templates')
 # Register the controllers
 app.register_blueprint(controllers.student)
 app.register_blueprint(controllers.teacher)
+app.register_blueprint(controllers.main)
 
 # Register the api controller
 app.register_blueprint(controllers.api_class, url_prefix='/api')

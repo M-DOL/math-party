@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- 493 WARNING
+     note that the following CDN links
+     will work only when you have internet access
+     It incldues
+     jQuery
+     bootstrap
+     and
+     angular.js
+     note that jQuery is added to enable bootstrap.
+     You should NOT use jQuery.
+   -->
+
+<html lang="en-US">
+<head>
+  <title> Math Party</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  
+  
+</head>
+
+<style>
+
+    a{
+      padding-bottom: 5px;
+      padding-top: 3px;
+      font-family: menlo, arial;
+      color: magenta;
+    }
+
+    body{
+      background-color: lightyellow;
+    }
+
+    .play {
+        text-align: center;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .limit img {    
+        height:10%;
+        width:10%;
+        min-height: 40px;
+        min-width: 40px;
+    }
+
+    #student_link {
+      font-size: 30px;
+    }
+
+    #teacher_link {
+      padding-top: 5px;
+      padding-left: 5px;
+      bottom: 5px;
+      position: absolute;
+    }
+
+</style>
+
+<body> 
+
+  <div class="container">
+    <div class="play">
+        <div class="col-md-1 limit">
+            <img src="/static/images/Balloon_blue.png">
+        </div>
+        <div class="col-md-1 limit">
+            <img src="/static/images/balloon_green.png">
+        </div>
+        <div class="col-md-1 limit">
+            <img src="/static/images/balloon_magenta.png">
+        </div>
+
+        <div class="col-md-6 limit">
+            <a href ={{ url_for('student.student_route') }} id=student_link>PLAY MATH PARTY!!</a>
+        </div>
+
+        <div class="col-md-1 limit">
+            <img src="/static/images/balloon_magenta.png">
+        </div>
+        <div class="col-md-1 limit">
+            <img src="/static/images/balloon_green.png">
+        </div>
+        <div class="col-md-1 limit">
+            <img src="/static/images/Balloon_blue.png">
+        </div>
+    </div>
+  </div>
+
+  <div id="teacher_link">
+    <a href ={{ url_for('teacher.teacher_route') }}>Teacher Portal</a>
+</div>
+</body>
+</html>
